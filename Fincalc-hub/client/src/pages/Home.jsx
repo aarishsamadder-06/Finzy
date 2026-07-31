@@ -71,7 +71,7 @@ const calculators = [
 ]
 
 const stats = [
-  { value: '5', label: 'Calculators', emoji: '🧮', color: 'text-violet-600' },
+  { value: '6', label: 'Calculators', emoji: '🧮', color: 'text-violet-600' },
   { value: '100%', label: 'Free', emoji: '🎁', color: 'text-emerald-600' },
   { value: 'Live', label: 'Results', emoji: '⚡', color: 'text-amber-600' },
   { value: '0', label: 'Login Needed', emoji: '🔓', color: 'text-blue-600' },
@@ -118,7 +118,7 @@ export default function Home() {
           </h1>
 
           <p className="text-xl text-indigo-200 max-w-2xl mx-auto mb-8 leading-relaxed">
-            5 powerful financial calculators in one place.
+            6 powerful financial calculators in one place.
             Make smarter money decisions — <span className="text-yellow-400 font-semibold">instantly and for free.</span>
           </p>
 
