@@ -1,3 +1,12 @@
-export default function EMIPage() {
-  return <div className="p-8 text-center text-gray-500">EMI Calculator coming soon</div>
+// src/pages/EMIPage.jsx
+import EMICalculator from "../components/EMICalculator/EMICalculator";
+
+function EMIPage() {
+  return (
+    <div>
+      <EMICalculator />
+    </div>
+  );
 }
+
+export default EMIPage;
