@@ -22,7 +22,6 @@ export default function EmergencyFund() {
         Plan Your Emergency Fund
       </h2>
 
-      {/* Monthly Expenses */}
       <InputSlider
         label="Monthly Expenses"
         value={monthlyExpense}
@@ -32,7 +31,6 @@ export default function EmergencyFund() {
         onChange={setMonthlyExpense}
       />
 
-      {/* Emergency Coverage */}
       <InputSlider
         label="Emergency Coverage"
         value={months}
@@ -44,7 +42,6 @@ export default function EmergencyFund() {
         suffix=" months"
       />
 
-      {/* Current Savings */}
       <InputSlider
         label="Current Savings"
         value={currentSavings}
@@ -54,7 +51,6 @@ export default function EmergencyFund() {
         onChange={setCurrentSavings}
       />
 
-      {/* Progress */}
       <div className="mt-6">
         <div className="flex justify-between text-sm mb-2">
           <span className="text-gray-600 font-medium">
@@ -64,28 +60,24 @@ export default function EmergencyFund() {
             {Math.round(result.progress)}%
           </span>
         </div>
-
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-green-500 transition-all duration-500"
-            style={{ width: `${result.progress}%` }}
+            style={{ width: `${Math.min(result.progress, 100)}%` }}
           ></div>
         </div>
       </div>
 
-      {/* Results */}
       <div className="grid grid-cols-3 gap-3 mt-6">
         <ResultCard
           label="Recommended Fund"
           value={fmt(result.recommendedFund)}
         />
-
         <ResultCard
           label="Current Savings"
           value={fmt(result.currentSavings)}
           highlight={result.amountNeeded === 0}
         />
-
         <ResultCard
           label="Still Needed"
           value={fmt(result.amountNeeded)}
@@ -93,16 +85,11 @@ export default function EmergencyFund() {
         />
       </div>
 
-      {/* Summary */}
       <p className="text-xs text-gray-400 mt-5 text-center">
         Based on monthly expenses of{" "}
-        <span className="font-semibold">
-          {fmt(monthlyExpense)}
-        </span>{" "}
+        <span className="font-semibold">{fmt(monthlyExpense)}</span>{" "}
         and{" "}
-        <span className="font-semibold">
-          {months} months
-        </span>{" "}
+        <span className="font-semibold">{months} months</span>{" "}
         of emergency coverage.
       </p>
 

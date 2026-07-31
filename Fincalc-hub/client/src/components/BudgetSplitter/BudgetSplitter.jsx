@@ -1,28 +1,21 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import BudgetChart from "./BudgetChart";
-import { calculateBudget } from "../../utils/budgetFormula";
+
+const NEEDS = 50;
+const WANTS = 30;
+const SAVINGS = 20;
 
 const BudgetSplitter = () => {
   const [income, setIncome] = useState(50000);
-  const [needs, setNeeds] = useState(50);
-  const [wants, setWants] = useState(30);
-  const [savings, setSavings] = useState(20);
 
-  const total = Number(needs) + Number(wants) + Number(savings);
-
-  const result = useMemo(() => {
-    return calculateBudget(
-      Number(income),
-      Number(needs),
-      Number(wants),
-      Number(savings)
-    );
-  }, [income, needs, wants, savings]);
+  const needsAmount = Math.round(income * NEEDS / 100);
+  const wantsAmount = Math.round(income * WANTS / 100);
+  const savingsAmount = Math.round(income * SAVINGS / 100);
 
   const chartData = [
-    { name: "Needs", value: result.needsAmount },
-    { name: "Wants", value: result.wantsAmount },
-    { name: "Savings", value: result.savingsAmount },
+    { name: "Needs", value: needsAmount },
+    { name: "Wants", value: wantsAmount },
+    { name: "Savings", value: savingsAmount },
   ];
 
   const formatCurrency = (amount) =>
@@ -34,196 +27,116 @@ const BudgetSplitter = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 py-12 px-4">
-
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-10">
-
           <h1 className="text-5xl font-extrabold text-white">
             Budget Splitter
           </h1>
-
           <p className="text-gray-300 mt-3 text-lg">
             Plan your monthly income using the famous
-            <span className="text-cyan-400 font-semibold">
-              {" "}50-30-20 Rule
-            </span>
+            <span className="text-cyan-400 font-semibold"> 50-30-20 Rule</span>
           </p>
-
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
 
-          {/* LEFT */}
-
+          {/* LEFT — Income Input */}
           <div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
-
             <h2 className="text-white text-2xl font-bold mb-8">
-              Enter Details
+              Enter Your Income
             </h2>
 
-            <div className="space-y-8">
-
+            <div className="space-y-6">
               <div>
-
                 <label className="text-white font-semibold">
                   Monthly Income
                 </label>
-
                 <input
                   type="number"
                   value={income}
-                  onChange={(e) => setIncome(e.target.value)}
-                  className="mt-2 w-full rounded-xl bg-white/20 text-white p-4 outline-none border border-white/20"
+                  onChange={(e) => setIncome(Number(e.target.value))}
+                  className="mt-2 w-full rounded-xl bg-white/20 text-white p-4 outline-none border border-white/20 text-2xl font-bold"
                 />
-
               </div>
 
-              {/* Needs */}
-
-              <div>
-
-                <div className="flex justify-between text-white mb-2">
-                  <span>Needs</span>
-                  <span>{needs}%</span>
+              <div className="bg-white/10 rounded-2xl p-5 border border-white/20 space-y-3">
+                <p className="text-cyan-400 font-bold text-lg">The 50-30-20 Rule</p>
+                <div className="flex justify-between text-white">
+                  <span>🏠 50% — Needs</span>
+                  <span className="font-bold">{formatCurrency(needsAmount)}</span>
                 </div>
-
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={needs}
-                  onChange={(e) => setNeeds(e.target.value)}
-                  className="w-full"
-                />
-
+                <div className="flex justify-between text-white">
+                  <span>🎯 30% — Wants</span>
+                  <span className="font-bold">{formatCurrency(wantsAmount)}</span>
+                </div>
+                <div className="flex justify-between text-white">
+                  <span>💰 20% — Savings</span>
+                  <span className="font-bold">{formatCurrency(savingsAmount)}</span>
+                </div>
               </div>
 
-              {/* Wants */}
-
-              <div>
-
-                <div className="flex justify-between text-white mb-2">
-                  <span>Wants</span>
-                  <span>{wants}%</span>
-                </div>
-
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={wants}
-                  onChange={(e) => setWants(e.target.value)}
-                  className="w-full"
-                />
-
+              <div className="bg-green-500/20 border border-green-400 rounded-xl p-4 text-green-300 font-semibold text-center">
+                ✅ Perfectly balanced allocation
               </div>
-
-              {/* Savings */}
-
-              <div>
-
-                <div className="flex justify-between text-white mb-2">
-                  <span>Savings</span>
-                  <span>{savings}%</span>
-                </div>
-
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={savings}
-                  onChange={(e) => setSavings(e.target.value)}
-                  className="w-full"
-                />
-
-              </div>
-
-              {total === 100 ? (
-                <div className="bg-green-500/20 border border-green-400 rounded-xl p-4 text-green-300 font-semibold text-center">
-                  ✓ Perfect Allocation (100%)
-                </div>
-              ) : (
-                <div className="bg-red-500/20 border border-red-400 rounded-xl p-4 text-red-300 font-semibold text-center">
-                  Percentages must equal 100%
-                </div>
-              )}
-
             </div>
-
           </div>
 
-          {/* RIGHT */}
-
+          {/* RIGHT — Result Cards */}
           <div className="space-y-6">
-
             <div className="grid gap-5">
 
               <div className="bg-blue-500 rounded-2xl p-6 text-white shadow-xl">
-
-                <p className="text-lg">Needs</p>
-
+                <p className="text-lg">🏠 Needs (50%)</p>
                 <h2 className="text-4xl font-bold mt-2">
-                  {formatCurrency(result.needsAmount)}
+                  {formatCurrency(needsAmount)}
                 </h2>
-
-                <div className="w-full h-3 bg-blue-300 rounded-full mt-5">
-                  <div
-                    className="h-3 bg-white rounded-full"
-                    style={{ width: `${needs}%` }}
-                  />
+                <p className="text-blue-100 text-sm mt-2">
+                  Rent, groceries, utilities, transport
+                </p>
+                <div className="w-full h-3 bg-blue-300 rounded-full mt-4">
+                  <div className="h-3 bg-white rounded-full w-1/2" />
                 </div>
-
               </div>
 
               <div className="bg-emerald-500 rounded-2xl p-6 text-white shadow-xl">
-
-                <p className="text-lg">Wants</p>
-
+                <p className="text-lg">🎯 Wants (30%)</p>
                 <h2 className="text-4xl font-bold mt-2">
-                  {formatCurrency(result.wantsAmount)}
+                  {formatCurrency(wantsAmount)}
                 </h2>
-
-                <div className="w-full h-3 bg-emerald-300 rounded-full mt-5">
-                  <div
-                    className="h-3 bg-white rounded-full"
-                    style={{ width: `${wants}%` }}
-                  />
+                <p className="text-emerald-100 text-sm mt-2">
+                  Dining out, entertainment, shopping
+                </p>
+                <div className="w-full h-3 bg-emerald-300 rounded-full mt-4">
+                  <div className="h-3 bg-white rounded-full w-3/10" style={{ width: '30%' }} />
                 </div>
-
               </div>
 
               <div className="bg-amber-500 rounded-2xl p-6 text-white shadow-xl">
-
-                <p className="text-lg">Savings</p>
-
+                <p className="text-lg">💰 Savings (20%)</p>
                 <h2 className="text-4xl font-bold mt-2">
-                  {formatCurrency(result.savingsAmount)}
+                  {formatCurrency(savingsAmount)}
                 </h2>
-
-                <div className="w-full h-3 bg-amber-300 rounded-full mt-5">
-                  <div
-                    className="h-3 bg-white rounded-full"
-                    style={{ width: `${savings}%` }}
-                  />
+                <p className="text-amber-100 text-sm mt-2">
+                  Emergency fund, investments, SIP
+                </p>
+                <div className="w-full h-3 bg-amber-300 rounded-full mt-4">
+                  <div className="h-3 bg-white rounded-full" style={{ width: '20%' }} />
                 </div>
-
               </div>
 
             </div>
 
             <div className="bg-white rounded-3xl shadow-2xl p-6">
-
+              <h3 className="text-gray-700 font-bold text-center mb-4">
+                Budget Distribution
+              </h3>
               <BudgetChart data={chartData} />
-
             </div>
 
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 };
