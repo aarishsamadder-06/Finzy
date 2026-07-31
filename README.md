@@ -12,7 +12,7 @@
 
 **6 powerful financial calculators in one place. Make every money decision with confidence.**
 
-[🚀 Live Demo](https://aarishsamadder-06.github.io/Finzy) · [📁 Repository](https://github.com/aarishsamadder-06/Finzy) · [🐛 Report Bug](https://github.com/aarishsamadder-06/Finzy/issues)
+[🚀 Live Demo](https://finzy-indol.vercel.app/) · [📁 Repository](https://github.com/aarishsamadder-06/Finzy) · [🐛 Report Bug](https://github.com/aarishsamadder-06/Finzy/issues)
 
 </div>
 
