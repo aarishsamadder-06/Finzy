@@ -7,27 +7,32 @@ import EMIPage from './pages/EMIPage'
 import SavingsPage from './pages/SavingsPage'
 import BudgetPage from './pages/BudgetPage'
 import EmergencyPage from './pages/EmergencyPage'
+import FDPage from './pages/FDPage'
 import { useTheme } from './utils/useTheme'
+import { AuthProvider } from './contexts/AuthContext'
 
 export default function App() {
   const { dark, toggle } = useTheme()
 
   return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
-        <Navbar dark={dark} toggle={toggle} />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sip" element={<SIPPage />} />
-            <Route path="/emi" element={<EMIPage />} />
-            <Route path="/savings" element={<SavingsPage />} />
-            <Route path="/budget" element={<BudgetPage />} />
-            <Route path="/emergency" element={<EmergencyPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+          <Navbar dark={dark} toggle={toggle} />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/sip" element={<SIPPage />} />
+              <Route path="/emi" element={<EMIPage />} />
+              <Route path="/savings" element={<SavingsPage />} />
+              <Route path="/budget" element={<BudgetPage />} />
+              <Route path="/emergency" element={<EmergencyPage />} />
+              <Route path="/fd" element={<FDPage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }

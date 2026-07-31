@@ -57,6 +57,17 @@ const calculators = [
     tagBg: 'bg-rose-100 text-rose-700',
     preview: 'Need ₹1.8L for 6 months coverage',
   },
+  {
+   path: '/fd',
+   emoji: '🏦',
+   title: 'FD Calculator',
+   desc: 'Calculate Fixed Deposit maturity amount and total interest earned',
+   gradient: 'from-teal-500 to-cyan-600',
+   glow: 'hover:shadow-teal-300 dark:hover:shadow-teal-900',
+   tag: '🏦 Fixed Deposit',
+   tagBg: 'bg-teal-100 text-teal-700',
+   preview: '₹1L at 7% for 5 yrs → ₹1.41L',
+ },
 ]
 
 const stats = [
